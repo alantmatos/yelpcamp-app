@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Campground = require('./models/campground');
 const methodOverride = require('method-override');
+const ejsMate = require('ejs-mate');
 
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // forms only make a get and post requests, im usng method overRide to
 // make a patch request in order to update data.
 app.use(methodOverride('_method'));
-
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
