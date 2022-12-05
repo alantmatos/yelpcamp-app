@@ -7,7 +7,8 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utilities/ExpressError');
 const CatchAsync = require('./utilities/CatchAsync');
-const {campgroundSchema} = require('./schemas.js')
+const { campgroundSchema } = require('./schemas.js');
+const Review = require('./models/review');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
@@ -21,7 +22,7 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
-const validateCampground = ( req, res, next ) => {
+const validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body);
     if (error) {
         const errorMsg = error.details.map(el => el.message).join(',')
@@ -86,6 +87,15 @@ app.get('/campgrounds/:id/edit', CatchAsync(async (req, res, next) => {
     const campground = await Campground.findById(id)
     res.render('campgrounds/edit', { campground })
 }));
+
+app.post('/campgrounds/:id/reviews', async (req, res, next) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+});
 
 app.all('*', (req, res, next) => {
     //res.send('404! My dog ate this page, Are you sure this is the one you are looking for?')
