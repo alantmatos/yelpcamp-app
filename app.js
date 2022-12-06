@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utilities/ExpressError');
+const session = require('express-session');
+
 
 //routes file
 const campgrounds = require('./routes/campgrounds')
@@ -24,6 +26,18 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
+//cookie configuration object
+const sessionConfig = {
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000*60*60*24*7,
+        maxAge: + 1000*60*60*24*7
+    }
+};
+
 
 // tell express to parse the body, if not parsed body will be empty
 app.use(express.urlencoded({ extended: true }));
@@ -32,15 +46,18 @@ app.use(express.urlencoded({ extended: true }));
 // make a patch request in order to update data.
 app.use(methodOverride('_method'));
 
-//using the pre set up route
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
 
 //config
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session(sessionConfig));
+
+
+//using the pre set up route
+app.use('/campgrounds', campgrounds);
+app.use('/campgrounds/:id/reviews', reviews);
 
 
 //root page
