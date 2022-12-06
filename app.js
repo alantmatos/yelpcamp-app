@@ -7,11 +7,16 @@ const ejsMate = require('ejs-mate');
 const ExpressError = require('./utilities/ExpressError');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+
 
 
 //routes file
-const campgrounds = require('./routes/campgrounds')
-const reviews = require('./routes/reviews');
+const campgroundsRoutes = require('./routes/campgrounds')
+const reviewsRoutes = require('./routes/reviews');
+const userRoutes = require('./routes/users');
 
 
 //database connection
@@ -55,6 +60,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 //flash middleware
@@ -66,8 +76,9 @@ app.use((req, res, next) =>{
 
 
 //using the pre set up route
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
+app.use('/campgrounds', campgroundsRoutes);
+app.use('/campgrounds/:id/reviews', reviewsRoutes);
+app.use('/', userRoutes);
 
 
 //root page
@@ -80,7 +91,6 @@ app.all('*', (req, res, next) => {
     //res.send('404! My dog ate this page, Are you sure this is the one you are looking for?')
     next(new ExpressError('Not Found', 404))
 });
-
 
 
 //Error handling middleware
