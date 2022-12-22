@@ -28,6 +28,16 @@ router.get('/login', (req, res) => {
     res.render('users/login');
 });
 
+router.get('/logout', (req, res) => {
+    req.logout(err=>{
+        if(err){
+            return next(err)
+        }
+        req.flash('success', 'see you soon!');
+        res.redirect('/campgrounds');
+    });
+});
+
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
     req.flash('success', 'Welcome Back!');
     res.redirect('/campgrounds');
