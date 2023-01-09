@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Campground = require('../models/campground');
 const CatchAsync = require('../utilities/CatchAsync');
 const passport = require('passport');
 const { isLoggedIn, isAuthor, validateCampground } = require('../middleware');
