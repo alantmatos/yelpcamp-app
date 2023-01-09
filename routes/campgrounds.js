@@ -7,17 +7,19 @@ const campgrounds = require('../controllers/campgrounds');
 
 
 
-router.get('/', CatchAsync(campgrounds.index));
+router.route('/')
+    .get(CatchAsync(campgrounds.index))
+    .post(isLoggedIn, validateCampground, CatchAsync(campgrounds.createCampground));
 
-router.delete('/:id', isLoggedIn, isAuthor, CatchAsync(campgrounds.deleteCampground));
-
-router.put('/:id', isLoggedIn, isAuthor, validateCampground, CatchAsync(campgrounds.updateCampground));
 
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
 
-router.post('/', isLoggedIn, validateCampground, CatchAsync(campgrounds.createCampground));
 
-router.get('/:id', CatchAsync(campgrounds.showCampground));
+router.route('/:id')
+    .get(CatchAsync(campgrounds.showCampground))
+    .put(isLoggedIn, isAuthor, validateCampground, CatchAsync(campgrounds.updateCampground))
+    .delete(isLoggedIn, isAuthor, CatchAsync(campgrounds.deleteCampground));
+
 
 router.get('/:id/edit', isLoggedIn, isAuthor, CatchAsync(campgrounds.renderEditCampground));
 

@@ -7,16 +7,16 @@ const passport = require('passport');
 const users = require('../controllers/users');
 
 
+router.route('/register')
+    .get(users.renderCreateUserForm)
+    .post(CatchAsync(users.createUser));
 
-router.get('/register', users.renderCreateUserForm);
-
-router.post('/register', CatchAsync(users.createUser));
-
-router.get('/login', users.renderLoginForm);
+router.route('/login')
+    .get(users.renderLoginForm)
+    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), users.logUserIn);
 
 router.get('/logout', users.logUserOut);
 
-router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), users.logUserIn);
 
 module.exports = router;
 
