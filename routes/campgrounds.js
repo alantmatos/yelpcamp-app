@@ -19,19 +19,34 @@ const validateCampground = (req, res, next) => {
     }
 }
 
+
+const isAuthor = async ( req, res, next) => {
+    const { id } = req.params;
+    const campground = await Campground.findById(id);
+    if(!campground.author.equals(req.user._id)){
+        req.flash('error', 'You do not have permission to do that');
+        return res.redirect(`/campgrounds/${id}`)
+    }else{
+        next();
+    }
+}
+
+
+
+
 router.get('/', CatchAsync(async (req, res, next) => {
     const campgrounds = await Campground.find({})
     res.render('campgrounds/index', { campgrounds })
 }));
 
-router.delete('/:id', isLoggedIn,CatchAsync(async (req, res, next) => {
+router.delete('/:id', isLoggedIn, isAuthor, CatchAsync(async (req, res, next) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndDelete(id);
     req.flash('success', 'The campground was successfully deleted');
     res.redirect('/campgrounds')
 }));
 
-router.put('/:id', isLoggedIn, validateCampground, CatchAsync(async (req, res, next) => {
+router.put('/:id', isLoggedIn, isAuthor, validateCampground, CatchAsync(async (req, res, next) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
     req.flash('success', 'The campground was successfully updated!');
@@ -52,7 +67,7 @@ router.post('/', isLoggedIn, validateCampground, CatchAsync(async (req, res, nex
 
 router.get('/:id', CatchAsync(async (req, res, next) => {
     const { id } = req.params
-    const campground = await Campground.findById(id).populate('reviews');
+    const campground = await Campground.findById(id).populate('reviews').populate('author');
     if (!campground) {
         req.flash('error', 'The campground was not found');
         return res.redirect('/campgrounds');
@@ -61,7 +76,7 @@ router.get('/:id', CatchAsync(async (req, res, next) => {
     }
 }));
 
-router.get('/:id/edit', isLoggedIn, CatchAsync(async (req, res, next) => {
+router.get('/:id/edit', isLoggedIn, isAuthor, CatchAsync(async (req, res, next) => {
     const { id } = req.params
     const campground = await Campground.findById(id)
     if (!campground) {

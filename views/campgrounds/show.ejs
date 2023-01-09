@@ -17,8 +17,12 @@
                     <li class="list-group-item text-muted">
                         <%= campground.location %>
                     </li>
+                    <li class="list-group-item text-muted">Submitted by:
+                        <%= campground.author.username %>
+                    </li>
                     <li class="list-group-item">$<%= campground.price %>/night</li>
                 </ul>
+                <% if(currentUser && campground.author.equals(currentUser._id)) {%>
                 <div class="card-body">
                     <a class="card-link btn btn-outline-primary" href="/campgrounds/<%= campground._id %>/edit">Edit <%=
                             campground.title %></a>
@@ -26,6 +30,7 @@
                         <button class="card-link btn btn-outline-danger">Delete</button>
                     </form>
                 </div>
+                <% } %>
             </div>
 
             <form action="/campgrounds/<%= campground._id %>/reviews" method="POST" class="mb-3 validated-form"
