@@ -38,12 +38,16 @@ module.exports.logUserOut = (req, res) => {
     });
 };
 
-module.exports.logUserIn = (req, res, next) => {
+module.exports.logUserIn = (req, res) => {
     req.flash('success', 'Welcome Back!');
-    //saves url user tried to acess, redirect after loguedin/
-    //the session is getting lost upon loggin, losing originalurl
     const redirectUserTo = req.session.returnTo || '/campgrounds';
-    console.log('url to return is ', redirectUserTo);
+    delete req.session.returnTo;
     res.redirect(redirectUserTo);
-    //delete req.session.returnTo;
+}
+
+module.exports.testeRedirectRoute = (req, res) => {
+    req.flash('success', 'welcome back!');
+    const redirectUrl = req.session.returnTo || '/campgrounds';
+    delete req.session.returnTo;
+    res.redirect(redirectUrl);
 }
