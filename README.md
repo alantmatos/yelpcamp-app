@@ -17,3 +17,19 @@ Detected bug - Middleware saves the desired url, app.middleware has access to it
 {
 handle index page when there is image has not been loaded
 }
+
+{
+572 - helmet. helmet was temporarily removed due to error with contentSecurityPolicy:, to be restored later.
+}
+
+
+
+
+
+
+
+https://www.npmjs.com/package/sanitize-html
+https://www.npmjs.com/package/express-mongo-sanitize
+https://helmetjs.github.io/
+https://docs.mapbox.com/mapbox-gl-js/guides/
+https://cloudinary.com/documentation/how_to_integrate_cloudinary
