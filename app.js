@@ -16,8 +16,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize');
-const dbUrl = process.env.DB_URL;
-const localDb = 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+const MongoStore = require('connect-mongo')
+const secret = process.env.SECRET || 'developmentSecret';
 
 
 
@@ -40,10 +41,21 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    secret: secret,
+    touchAfter: 24*60*60
+});
+
+store.on('error', function(e){
+    console.log("session error", e)
+});
+
 //cookie configuration object
 const sessionConfig = {
+    store,
     name: 'cheesecake',
-    secret: 'secret',
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
