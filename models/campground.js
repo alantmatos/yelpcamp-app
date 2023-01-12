@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Review = require('./review');
 const Schema = mongoose.Schema;
+const opts = { toJSON: { virtuals: true } };
 
 const ImageSchema = new Schema({
     url: String,
@@ -10,6 +11,7 @@ const ImageSchema = new Schema({
 ImageSchema.virtual('thumbnail').get(function (){
     return this.url.replace('/upload', '/upload/w_200');
 });
+
 
 const CampgroundSchema = new Schema({
     title: String,
@@ -39,6 +41,13 @@ const CampgroundSchema = new Schema({
         }
     ]
 
+}, opts);
+
+CampgroundSchema.virtual('properties.popUpMarkup').get(function (){
+    return `
+    <a href="/campgrounds/${this._id}">${this.title}</a>
+    <p>${this.description.substring(0,20)}...</p>
+    `
 });
 
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
