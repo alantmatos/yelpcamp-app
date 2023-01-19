@@ -82,34 +82,6 @@ Would you like to see it by yourself?
 
 You can visit: https://long-pink-camel-cape.cyclic.app/
 
-Or if you would to run it locally, here it goes:
-
-### Prerequisites
-
-First lets make sure you hae NPM installed.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-Get it up and running with:
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/alantmatos/YelpCamp-App
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Create a .env file in the root of the project you will need the following variables:
-
-- DATABASEURL='<url>'
-- API_KEY=''<key>
-- API_SECRET='<secret>'
-
 
 
 
