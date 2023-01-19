@@ -2,7 +2,7 @@
 YelpCamp is a website where users can create and review campgrounds. In order to review or create a campground, you must have an account.
 
 <div>
-<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085205/yelpcamp-docs/Screenshot_2023-01-18_132757_zuqpnr.png" alt="Logo" width="1000" height="600">
+<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085205/yelpcamp-docs/Screenshot_2023-01-18_132757_zuqpnr.png" alt="Logo" >
 </div>
 
 
@@ -118,16 +118,16 @@ Get it up and running with:
 
 
 <div>
-<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085204/yelpcamp-docs/Screenshot_2023-01-18_133121_hlaqbe.png" alt="Logo" width="1000" height="600">
+<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085204/yelpcamp-docs/Screenshot_2023-01-18_133121_hlaqbe.png" alt="Logo" >
 </div>
 <div>
-<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085204/yelpcamp-docs/Screenshot_2023-01-18_132901_fyfb7x.png" alt="Logo" width="1000" height="600">
+<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085204/yelpcamp-docs/Screenshot_2023-01-18_132901_fyfb7x.png" alt="Logo" >
 </div>
 <div>
-<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085204/yelpcamp-docs/Screenshot_2023-01-18_133333_hfwq3n.png" alt="Logo" width="1000" height="600">
+<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085204/yelpcamp-docs/Screenshot_2023-01-18_133333_hfwq3n.png" alt="Logo" >
 </div>
 <div>
-<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085204/yelpcamp-docs/Screenshot_2023-01-18_133247_rxar9z.png" alt="Logo" width="1000" height="600">
+<img src="https://res.cloudinary.com/dlnhzrsfv/image/upload/v1674085204/yelpcamp-docs/Screenshot_2023-01-18_133247_rxar9z.png" alt="Logo" >
 </div>
 
 
